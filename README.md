@@ -46,7 +46,7 @@ The following programs run on a [fork of SectorLISP](https://github.com/woodrush
     This example also implements the backquote macro `` ` ``, as well as the unquote operation `~` using `macro`.
 - [repl-macro-define.lisp](./lisp/repl-macro-define.lisp)
   - A version of eval-macro-define.lisp with an REPL interface.
-    With the combination of `print`, `read`, `define`, `progn`, and implicit `progn`s inside lambdas and macros,
+    With the combination of `print`, `read`, `macro`, `define`, `progn`, and implicit `progn`s inside lambdas and macros,
     the experience of the REPL should be close to that of modern Lisp dialects.
 
 ## Licensing
