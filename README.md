@@ -40,7 +40,7 @@ The following programs run on a [fork of SectorLISP](https://github.com/woodrush
 - [basic-repl.lisp](./lisp/basic-repl.lisp) :
   - A BASIC-subset interpreter with an REPL interface.
     Supports the commands `LIST`, `RUN`, `DISCARD` for editing and running BASIC programs.
-- [repl.lisp](./lisp/repl.lisp) :
+- [repl-macro.lisp](./lisp/repl-macro.lisp) :
   - A version of eval-macro.lisp with an REPL interface,
     supporting the `macro` special form which can be used to construct macros.
     This example also implements the backquote macro `` ` ``, as well as the unquote operation `~` using `macro`.
@@ -51,9 +51,9 @@ The following programs run on a [fork of SectorLISP](https://github.com/woodrush
 
 ## Licensing
 The following programs are based on [lisp.lisp](https://github.com/jart/sectorlisp/blob/main/lisp.lisp) in the [original SectorLISP repository](https://github.com/jart/sectorlisp):
-- [repl.lisp](./lisp/repl.lisp)
 - [eval-macro.lisp](./lisp/eval-macro.lisp)
 - [eval-macro-define.lisp](./lisp/eval-macro-define.lisp)
+- [repl-macro.lisp](./lisp/repl.lisp)
 - [repl-macro-define.lisp](./lisp/repl-macro-define.lisp)
 
 The [LICENSE](LICENSE) in this repository includes the license from the original SectorLISP repository.
