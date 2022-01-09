@@ -38,14 +38,14 @@ The following programs run on a [fork of SectorLISP](https://github.com/woodrush
   - An interactive number guessing game where the player guesses a
     secret number from 1 to 10, using incremental knowledge of whether the guess was less than or greater than the secret number.
 - [basic-repl.lisp](./lisp/basic-repl.lisp) :
-  - A BASIC-subset interpreter with an REPL interface.
+  - A BASIC-subset interpreter with a REPL interface.
     Supports the commands `LIST`, `RUN`, `DISCARD` for editing and running BASIC programs.
 - [repl-macro.lisp](./lisp/repl-macro.lisp) :
-  - A version of eval-macro.lisp with an REPL interface,
+  - A version of eval-macro.lisp with a REPL interface,
     supporting the `macro` special form which can be used to construct macros.
     This example also implements the backquote macro `` ` ``, as well as the unquote operation `~` using `macro`.
 - [repl-macro-define.lisp](./lisp/repl-macro-define.lisp)
-  - A version of eval-macro-define.lisp with an REPL interface.
+  - A version of eval-macro-define.lisp with a REPL interface.
     With the combination of `print`, `read`, `macro`, `define`, `progn`, and implicit `progn`s inside lambdas and macros,
     the experience of the REPL should be close to that of modern Lisp dialects.
 
