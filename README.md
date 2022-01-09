@@ -6,6 +6,11 @@ The following program runs on the original SectorLISP:
 - [basic.lisp](./lisp/basic.lisp) : A BASIC-subset interpreter that runs on the original SectorLISP.
   Supports the instructions `REM`, `LET`, `IF`, `GOTO`, `PRINT`, and the infix operators `+`, `-`, `%`, and `<=`.
   Integers are expressed in unary as the number of atoms in a list, such as `(1 1 1)`.
+- [quine.lisp](./lisp/quine.lisp) : A [quine](https://en.wikipedia.org/wiki/Quine_(computing)) for SectorLISP,
+  which is a program that prints its own source code when evaluated, without the use of any external input.
+  When evaluated in the SectorLISP REPL, the output exactly matches the input itself.
+  The technique used in this code is referenced from the Common Lisp quine in the [Quine](https://rosettacode.org/wiki/Quine#Common_Lisp) entry from [Rosetta Code](https://rosettacode.org/wiki/Rosetta_Code).
+
 
 The following program runs on a [fork of SectorLISP](https://github.com/woodrush/sectorlisp/tree/io) with `READ` and `PRINT`:
 - [number-guessing-game.lisp](./lisp/number-guessing-game.lisp) : An interactive number guessing game where the player guesses a
