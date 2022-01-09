@@ -2,14 +2,15 @@
    (CDR (EVAL
           (QUOTE 
             ((lambda (loop) (loop loop))
-               (quote (lambda (loop)
-                  (print (quote REPL>))
-                  (define input (read))
-                  (print (quote =>))
-                  (print (eval input))
-                  (print)
-                  (print)
-                  (loop loop)))))
+               (quote
+                 (lambda (loop)
+                   (print (quote REPL>))
+                   (define input (read))
+                   (print (quote =>))
+                   (print (eval input))
+                   (print)
+                   (print)
+                   (loop loop)))))
           ())))
  (QUOTE (LAMBDA (X Y)
           (COND ((EQ Y ()) ())

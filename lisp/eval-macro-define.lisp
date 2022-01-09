@@ -2,19 +2,20 @@
    (CAR (EVAL
           (QUOTE 
             (PROGN
-              (DEFINE ` (QUOTE (MACRO (BODY)
-                 (DEFINE `-HELPER (QUOTE (LAMBDA (BODY)
-                   (COND
-                     ((ATOM BODY)
-                        (CONS (QUOTE QUOTE) (CONS BODY ())))
-                     ((EQ (QUOTE ~) (CAR BODY))
-                        (CAR (CDR BODY)))
-                     ((QUOTE T)
-                        (CONS (QUOTE CONS)
-                        (CONS (`-HELPER (CAR BODY))
-                        (CONS (`-HELPER (CDR BODY))
-                              ()))))))))
-                 (`-HELPER BODY))))
+              (DEFINE ` (QUOTE
+                (MACRO (BODY)
+                  (DEFINE `-HELPER (QUOTE (LAMBDA (BODY)
+                    (COND
+                      ((ATOM BODY)
+                         (CONS (QUOTE QUOTE) (CONS BODY ())))
+                      ((EQ (QUOTE ~) (CAR BODY))
+                         (CAR (CDR BODY)))
+                      ((QUOTE T)
+                         (CONS (QUOTE CONS)
+                         (CONS (`-HELPER (CAR BODY))
+                         (CONS (`-HELPER (CDR BODY))
+                               ()))))))))
+                  (`-HELPER BODY))))
               (DEFINE DEFMACRO (QUOTE (MACRO (NAME VARS BODY)
                 (` (DEFINE (~ NAME) (QUOTE (MACRO (~ VARS) (~ BODY))))))))
               (DEFMACRO REPQUOTE (X)
