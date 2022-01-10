@@ -1,4 +1,4 @@
-((LAMBDA (DEBUG _ addh _ addf _ uaddn _ + - *)
+((LAMBDA (DEBUG u0 _ addh _ addf _ uaddn _ umultn _ + - *)
    ((LAMBDA () ())
     (PRINT (addh (QUOTE 0) (QUOTE 0)))
     (PRINT (addh (QUOTE 0) (QUOTE 1)))
@@ -14,11 +14,22 @@
     (PRINT (addf (QUOTE 0) (QUOTE 1) (QUOTE 1)))
     (PRINT (addf (QUOTE 1) (QUOTE 1) (QUOTE 1)))
     (PRINT)
-    (PRINT (+ (QUOTE (1 0 0 1)) (QUOTE (1 0 1 0)))))
+    (PRINT (uaddn (QUOTE (1 0 0 1)) (QUOTE (1 0 1 0)) (QUOTE 0)))(PRINT)
+    (PRINT)
+    (PRINT (umultn (QUOTE (1 0 0 0 0 0 0)) (QUOTE (1 0 0 0 0 0 0))))(PRINT)
+    (PRINT (umultn (QUOTE (1 0 0 0 0 0 0)) (QUOTE (0 1 0 0 0 0 0))))(PRINT)
+    (PRINT (umultn (QUOTE (1 0 0 0 0 0 0)) (QUOTE (1 1 0 0 0 0 0))))(PRINT)
+    (PRINT (umultn (QUOTE (0 1 0 0 0 0 0)) (QUOTE (1 1 0 0 0 0 0))))(PRINT)
+    (PRINT (umultn (QUOTE (1 1 0 0 0 0 0)) (QUOTE (1 1 0 0 0 0 0))))(PRINT)
+    (PRINT (umultn (QUOTE (1 1 1 0 0 0 0)) (QUOTE (1 1 0 0 0 0 0))))(PRINT)
+    (PRINT (umultn (QUOTE (1 1 0 1 0 0 0)) (QUOTE (1 1 0 0 0 0 0))))(PRINT)
+    (PRINT (umultn (QUOTE (1 1 1 1 0 0 0)) (QUOTE (1 1 1 1 0 0 0))))(PRINT)
+    )
    
    
  )
  (QUOTE (LAMBDA (X) ((LAMBDA (_ _ _ Y) Y) (PRINT (QUOTE [)) (PRINT X) (PRINT (QUOTE ])) X)))
+ (QUOTE (0 0 0 0 0 0 0))
  (QUOTE
    ;; addh : Half adder
    ;;        Output is in binary in reverse order (msb at the end)
@@ -53,6 +64,18 @@
       ((LAMBDA (XYC)
          (CONS (CAR XYC) (uaddn (CDR X) (CDR Y) (CDR XYC))))
        (addf (CAR X) (CAR Y) C))))))
+ (QUOTE
+   ;; umultn : Unsigned N-bit mult
+ )
+ (QUOTE (LAMBDA (X Y)
+   (COND
+     ((EQ NIL Y) X)
+     ((QUOTE T)
+      (uaddn (COND
+               ((EQ (QUOTE 0) (CAR Y)) u0)
+               ((QUOTE T) X))
+             (umultn (CONS (QUOTE 0) X) (CDR Y))
+             (QUOTE 0))))))
  (QUOTE
    ;; +
  )
