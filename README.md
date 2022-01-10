@@ -12,6 +12,12 @@ The following programs run on the original SectorLISP:
     which is a program that prints its own source code when evaluated, without the use of any external input.
     When evaluated in the SectorLISP REPL, the output exactly matches the input itself.
     The technique used in this code is referenced from the Common Lisp quine in the [Quine](https://rosettacode.org/wiki/Quine#Common_Lisp) entry from [Rosetta Code](https://rosettacode.org/wiki/Rosetta_Code).
+- [fizzbuzz.lisp](./lisp/fizzbuzz.lisp) :
+  - Implements [Fizzbuzz](https://en.wikipedia.org/wiki/Fizz_buzz).
+    Integers are expressed in unary as the number of atoms in a list, such as `(* * *)`.
+- [fizzbuzz-decimal.lisp](./lisp/fizzbuzz-decimal.lisp) :
+  - Implements Fizzbuzz, and shows the results as decimal numbers. For example, 123 is shown as `(1 2 3)`.
+    Since the computation is rather heavy, it takes a little bit of time for the results to be shown.
 - [eval-macro.lisp](./lisp/eval-macro.lisp) :
   - An extended version of the metacircular evaluator in [lisp.lisp](https://github.com/jart/sectorlisp/blob/main/lisp.lisp) from the [original SectorLISP repository](https://github.com/jart/sectorlisp),
     supporting a new special form `MACRO` which can be used to construct macros.
