@@ -1,5 +1,6 @@
-((LAMBDA (DEBUG u0 umax fracbitsize 2 _ addhalf _ addfull _ uaddnofc _ uaddnof _ umultnof
-          _ take _ drop _ unegate _ fixmult _ + _ - _ * _ 0>fix _ <fix _ >fix _ mandelstep _ ismandel)
+((LAMBDA (DEBUG u0 umax fracbitsize 2 4 _ addhalf _ addfull _ uaddnofc _ uaddnof _ umultnof
+          _ take _ drop _ unegate _ fixmult _ + _ - _ * _ 0>fix _ < _ > _ mandelstep
+          _ ismandel_iter _ ismandel)
    ((LAMBDA () ())
     (PRINT (addhalf (QUOTE 0) (QUOTE 0)))
     (PRINT (addhalf (QUOTE 0) (QUOTE 1)))
@@ -54,31 +55,33 @@
     (PRINT (0>fix (QUOTE (0 0 0 0 0 0 1 1   1 1 1 0))))(PRINT)
     (PRINT (0>fix (QUOTE (0 0 0 0 0 0 1 1   1 1 1 1))))(PRINT)
     (PRINT)
-    (PRINT (>fix (QUOTE (0 0 0 0 0 0 0 0   1 0 0 0))
-                 (QUOTE (0 0 0 0 0 0 0 0   1 0 0 0))))(PRINT)
-    (PRINT (>fix (QUOTE (0 0 0 0 0 0 0 1   0 0 0 0))
-                 (QUOTE (0 0 0 0 0 0 0 0   1 0 0 0))))(PRINT)
-    (PRINT (>fix (QUOTE (0 0 0 0 0 0 1 1   0 0 0 0))
-                 (QUOTE (0 0 0 0 0 0 0 0   1 1 1 0))))(PRINT)
-    (PRINT (>fix (QUOTE (0 0 0 0 0 0 1 1   1 1 0 0))
-                 (QUOTE (0 0 0 0 0 0 0 0   1 1 1 0))))(PRINT)
-    (PRINT (>fix (QUOTE (0 0 0 0 0 0 1 1   1 1 0 0))
-                 (QUOTE (0 0 0 0 0 0 0 0   1 1 1 1))))(PRINT)
-    (PRINT (>fix (QUOTE (0 0 0 0 0 0 1 1   1 1 0 1))
-                 (QUOTE (0 0 0 0 0 0 0 0   1 1 1 1))))(PRINT)
+    (PRINT (> (QUOTE (0 0 0 0 0 0 0 0   1 0 0 0))
+              (QUOTE (0 0 0 0 0 0 0 0   1 0 0 0))))(PRINT)
+    (PRINT (> (QUOTE (0 0 0 0 0 0 0 1   0 0 0 0))
+              (QUOTE (0 0 0 0 0 0 0 0   1 0 0 0))))(PRINT)
+    (PRINT (> (QUOTE (0 0 0 0 0 0 1 1   0 0 0 0))
+              (QUOTE (0 0 0 0 0 0 0 0   1 1 1 0))))(PRINT)
+    (PRINT (> (QUOTE (0 0 0 0 0 0 1 1   1 1 0 0))
+              (QUOTE (0 0 0 0 0 0 0 0   1 1 1 0))))(PRINT)
+    (PRINT (> (QUOTE (0 0 0 0 0 0 1 1   1 1 0 0))
+              (QUOTE (0 0 0 0 0 0 0 0   1 1 1 1))))(PRINT)
+    (PRINT (> (QUOTE (0 0 0 0 0 0 1 1   1 1 0 1))
+              (QUOTE (0 0 0 0 0 0 0 0   1 1 1 1))))(PRINT)
     (PRINT)
-    (PRINT (<fix (QUOTE (0 0 0 0 0 0 0 0   1 0 0 0))
-                 (QUOTE (0 0 0 0 0 0 0 0   1 0 0 0))))(PRINT)
-    (PRINT (<fix (QUOTE (0 0 0 0 0 0 0 1   0 0 0 0))
-                 (QUOTE (0 0 0 0 0 0 0 0   1 0 0 0))))(PRINT)
-    (PRINT (<fix (QUOTE (0 0 0 0 0 0 1 1   0 0 0 0))
-                 (QUOTE (0 0 0 0 0 0 0 0   1 1 1 0))))(PRINT)
-    (PRINT (<fix (QUOTE (0 0 0 0 0 0 1 1   1 1 0 0))
-                 (QUOTE (0 0 0 0 0 0 0 0   1 1 1 0))))(PRINT)
-    (PRINT (<fix (QUOTE (0 0 0 0 0 0 1 1   1 1 0 0))
-                 (QUOTE (0 0 0 0 0 0 0 0   1 1 1 1))))(PRINT)
-    (PRINT (<fix (QUOTE (0 0 0 0 0 0 1 1   1 1 0 1))
-                 (QUOTE (0 0 0 0 0 0 0 0   1 1 1 1))))(PRINT)
+    (PRINT (< (QUOTE (0 0 0 0 0 0 0 0   1 0 0 0))
+              (QUOTE (0 0 0 0 0 0 0 0   1 0 0 0))))(PRINT)
+    (PRINT (< (QUOTE (0 0 0 0 0 0 0 1   0 0 0 0))
+              (QUOTE (0 0 0 0 0 0 0 0   1 0 0 0))))(PRINT)
+    (PRINT (< (QUOTE (0 0 0 0 0 0 1 1   0 0 0 0))
+              (QUOTE (0 0 0 0 0 0 0 0   1 1 1 0))))(PRINT)
+    (PRINT (< (QUOTE (0 0 0 0 0 0 1 1   1 1 0 0))
+              (QUOTE (0 0 0 0 0 0 0 0   1 1 1 0))))(PRINT)
+    (PRINT (< (QUOTE (0 0 0 0 0 0 1 1   1 1 0 0))
+              (QUOTE (0 0 0 0 0 0 0 0   1 1 1 1))))(PRINT)
+    (PRINT (< (QUOTE (0 0 0 0 0 0 1 1   1 1 0 1))
+              (QUOTE (0 0 0 0 0 0 0 0   1 1 1 1))))(PRINT)
+    (PRINT)
+    (PRINT (ismandel u0 u0 u0 u0))(PRINT)
     (PRINT)
     )
    
@@ -88,6 +91,7 @@
  (QUOTE (1 1 1 1 1 1 1 1   1 1 1 1))
  (QUOTE (1 1 1 1 1 1 1 1))
  (QUOTE (0 0 0 0 0 0 0 0   0 1 0 0))
+ (QUOTE (0 0 0 0 0 0 0 0   0 0 1 0))
  (QUOTE
    ;; addhalf : Half adder
    ;;           Output is in reverse ordered binary (the msb is at the end)
@@ -186,15 +190,15 @@
  (QUOTE (LAMBDA (X)
    (EQ (QUOTE 1) (CAR (drop (CDR u0) X)))))
  (QUOTE
-   ;; <fix
+   ;; <
  )
  (QUOTE (LAMBDA (X Y)
    (0>fix (- X Y))))
  (QUOTE
-   ;; >fix
+   ;; >
  )
  (QUOTE (LAMBDA (X Y)
-   (<fix Y X)))
+   (< Y X)))
 
  (QUOTE
    ;; mandelstep
@@ -203,11 +207,16 @@
    (CONS (+ c_r (- (* z_r z_r) (* z_i z_i)))
          (+ c_i (* 2 (* z_r z_i))))))
  (QUOTE
+   ;; ismandel_iter
+ )
+ (QUOTE (LAMBDA (z_r z_i c_r c_i N_iter_u)
+   (COND
+     ((EQ NIL N_iter_u) (QUOTE T))
+     ((< 4 (+ (* z_r z_r) (* z_i z_i))) NIL)
+     ((QUOTE T) (ismandel_iter z_r z_i c_r c_i (CDR N_iter_u))))))
+ (QUOTE
    ;; ismandel
  )
- (QUOTE (LAMBDA (z_r z_i c_r c_i N_iter)
-   (COND
-     ((EQ NIL N_iter) (QUOTE T))
-     )
- ))
+ (QUOTE (LAMBDA (z_r z_i c_r c_i)
+   (ismandel_iter z_r z_i c_r c_i (QUOTE (* * *)))))
  )
