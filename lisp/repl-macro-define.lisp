@@ -132,9 +132,6 @@
          (cons (`-helper (cdr body))
                ()))))))))
   (`-helper body))))
-(` (a b (~ (quote c))))
-(define x (quote a))
-x
 (define defmacro (quote (macro (name vars body)
   (` (define (~ name) (quote (macro (~ vars) (~ body))))))))
 (defmacro repquote (x)
