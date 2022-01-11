@@ -1,6 +1,6 @@
 ((LAMBDA (DEBUG u0 umax fracbitsize 2 4 _ addhalf _ addfull _ uaddnofc _ uaddnof _ umultnof
-          _ take _ drop _ unegate _ fixmult _ + _ - _ * _ 0>fix _ < _ > _ mandelstep
-          _ ismandel_iter _ ismandel _ mandelplot)
+          _ take _ drop _ unegate _ fixmult _ + _ - _ * _ 0>fix _ < _ > _ <<
+          _ mandelstep _ ismandel_iter _ ismandel _ mandelplot)
    ((LAMBDA () ())
     (PRINT (addhalf (QUOTE 0) (QUOTE 0)))
     (PRINT (addhalf (QUOTE 0) (QUOTE 1)))
@@ -82,6 +82,11 @@
               (QUOTE (0 0 0 0 0 0 0 0   1 1 1 1))))(PRINT)
     (PRINT)
     (PRINT (ismandel u0 u0 u0 u0))(PRINT)
+    (PRINT)
+    (PRINT (<< (QUOTE (0 0 0 0 0 0 1 1   1 1 0 1)) (QUOTE (*))))(PRINT)
+    (PRINT (<< (QUOTE (0 0 0 0 0 0 1 1   1 1 0 1)) (QUOTE (* *))))(PRINT)
+    (PRINT (<< (QUOTE (0 0 0 0 0 0 1 1   1 1 0 1)) (QUOTE (* * *))))(PRINT)
+    (PRINT (<< (QUOTE (0 0 0 0 0 0 1 1   1 1 0 1)) (QUOTE (* * * *))))(PRINT)
     (PRINT)
     )
    
@@ -199,6 +204,13 @@
  )
  (QUOTE (LAMBDA (X Y)
    (< Y X)))
+ (QUOTE
+   ;; << : Shift X by Y_u bits, where Y_u is in unary.
+   ;;      Note that since the bits are written in reverse order,
+   ;;      This works as division and makes the input number smaller.
+ )
+ (QUOTE (LAMBDA (X Y_u)
+   (+ (drop Y_u X) u0)))
 
  (QUOTE
    ;; mandelstep
@@ -226,6 +238,12 @@
    ;; mandelplot
  )
  (QUOTE (LAMBDA ()
-   NIL
+   ((LAMBDA (-3 -1 2 4 N_plotsize_u))
+    (unegate (QUOTE (0 0 0 0 0 0 0 0   1 1 0 0)))
+    (unegate (QUOTE (0 0 0 0 0 0 0 0   1 0 0 0)))
+    (unegate (QUOTE (0 0 0 0 0 0 0 0   1 0 0 0)))
+    (unegate (QUOTE (0 0 0 0 0 0 0 0   0 0 1 0)))
+    (QUOTE (* * * *))
+    )
  ))
  )
