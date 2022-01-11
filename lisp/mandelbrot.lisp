@@ -1,4 +1,5 @@
-((LAMBDA (DEBUG u0 ud0 _ addhalf _ addfull _ uaddnc _ uaddn _ umultn _ + - *)
+((LAMBDA (DEBUG u0 umax _ addhalf _ addfull _ uaddnc _ uaddn _ umultn
+          _ take _ drop _ unegate _ + _ - _ *)
    ((LAMBDA () ())
     (PRINT (addhalf (QUOTE 0) (QUOTE 0)))
     (PRINT (addhalf (QUOTE 0) (QUOTE 1)))
@@ -25,14 +26,17 @@
     (PRINT (umultn (QUOTE (1 1 0 1 0 0 0 0)) (QUOTE (1 1 0 0 0 0 0 0))))(PRINT)
     (PRINT (umultn (QUOTE (1 1 1 1 0 0 0 0)) (QUOTE (1 1 1 1 0 0 0 0))))(PRINT)
     (PRINT (umultn (QUOTE (1 1 1 1 1 0 0 0)) (QUOTE (1 1 1 1 1 0 0 0))))(PRINT)
+    (PRINT)
+    (PRINT (unegate (QUOTE (1 1 1 1 1 0 0 0))))(PRINT)
+    (PRINT (unegate (QUOTE (1 0 0 0 0 0 0 0))))(PRINT)
+    (PRINT (unegate (QUOTE (0 1 0 0 0 0 0 0))))(PRINT)
     )
    
    
  )
  (QUOTE (LAMBDA (X) ((LAMBDA (_ _ _ _ Y) Y) (PRINT (QUOTE [)) (PRINT X) (PRINT (QUOTE ])) (PRINT) X)))
  (QUOTE (0 0 0 0 0 0 0 0))
- (QUOTE (0 0 0 0 0 0 0 0
-         0 0 0 0 0 0 0 0))
+ (QUOTE (1 1 1 1 1 1 1 1))
  (QUOTE
    ;; addhalf : Half adder
    ;;           Output is in reverse ordered binary (the msb is at the end)
@@ -84,6 +88,26 @@
                ((EQ (QUOTE 0) (CAR Y)) u0)
                ((QUOTE T) X))
              (umultn (CONS (QUOTE 0) X) (CDR Y)))))))
+ (QUOTE
+   ;; take : Take a list of (len L) atoms from X
+ )
+ (QUOTE (LAMBDA (L X)
+   (COND
+     ((EQ NIL L) NIL)
+     ((QUOTE T) (CONS (CAR X) (take (CDR L) (CDR X)))))))
+ (QUOTE
+   ;; drop : Drop the first (len L) atoms from X
+ )
+ (QUOTE (LAMBDA (L X)
+   (COND
+     ((EQ NIL X) NIL)
+     ((EQ NIL L) X)
+     ((QUOTE T) (drop (CDR L) (CDR X))))))
+ (QUOTE
+   ;; unegate : Two's complement of unsigned int
+ )
+ (QUOTE (LAMBDA (N)
+   (take u0 (umultn N umax))))
  (QUOTE
    ;; +
  )
