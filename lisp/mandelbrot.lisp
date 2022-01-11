@@ -1,6 +1,6 @@
 ((LAMBDA (DEBUG u0 umax fracbitsize 2 4 _ addhalf _ addfull _ uaddnofc _ uaddnof _ umultnof
           _ take _ drop _ unegate _ fixmult _ + _ - _ * _ 0>fix _ < _ > _ mandelstep
-          _ ismandel_iter _ ismandel)
+          _ ismandel_iter _ ismandel _ mandelplot)
    ((LAMBDA () ())
     (PRINT (addhalf (QUOTE 0) (QUOTE 0)))
     (PRINT (addhalf (QUOTE 0) (QUOTE 1)))
@@ -213,10 +213,19 @@
    (COND
      ((EQ NIL N_iter_u) (QUOTE T))
      ((< 4 (+ (* z_r z_r) (* z_i z_i))) NIL)
-     ((QUOTE T) (ismandel_iter z_r z_i c_r c_i (CDR N_iter_u))))))
+     ((QUOTE T)
+      ((LAMBDA (z)
+         (ismandel_iter (CAR z) (CDR z) c_r c_i (CDR N_iter_u)))
+       (mandelstep z_r z_i c_r c_i))))))
  (QUOTE
    ;; ismandel
  )
  (QUOTE (LAMBDA (z_r z_i c_r c_i)
-   (ismandel_iter z_r z_i c_r c_i (QUOTE (* * *)))))
+   (ismandel_iter z_r z_i c_r c_i (QUOTE (* * * *)))))
+ (QUOTE
+   ;; mandelplot
+ )
+ (QUOTE (LAMBDA ()
+   NIL
+ ))
  )
