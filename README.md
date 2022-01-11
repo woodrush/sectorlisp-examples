@@ -7,6 +7,7 @@ The following programs run on the original SectorLISP:
   - A BASIC-subset interpreter that runs on the original SectorLISP.
     Supports the instructions `REM`, `LET`, `IF`, `GOTO`, `PRINT`, and the infix operators `+`, `-`, `%`, and `<=`.
     Integers are expressed in unary as the number of atoms in a list, such as `(1 1 1)`.
+    A slightly modified version where the program is brought to the end is shown in [basic-2.lisp](./lisp/basic-2.lisp).
 - [quine.lisp](./lisp/quine.lisp) :
   - A [quine](https://en.wikipedia.org/wiki/Quine_(computing)) for SectorLISP,
     which is a program that prints its own source code when evaluated, without the use of any external input.
