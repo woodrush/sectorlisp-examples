@@ -4,10 +4,7 @@
           _ ismandel_iter _ ismandel
           _ iter_I _ iter_R _ mandelplot)
    ((LAMBDA () ())
-    (mandelplot)
-    )
-
- )
+    (mandelplot)))
  (QUOTE (LAMBDA (X) ((LAMBDA (_ _ _ _ Y) Y) (PRINT (QUOTE [)) (PRINT X) (PRINT (QUOTE ])) (PRINT) X)))
  (QUOTE (0 0 0 0 0 0   0 0 0 0))
  (QUOTE (1 1 1 1 1 1   1 1 1 1))
@@ -157,7 +154,7 @@
    ;; ismandel
  )
  (QUOTE (LAMBDA (c_r c_i)
-   (ismandel_iter u0 u0 (QUOTE (* * *)))))
+   (ismandel_iter u0 u0 (QUOTE (* * * *)))))
  (QUOTE
    ;; iter_I
  )
@@ -165,9 +162,10 @@
    (COND
      ((> c_i c_i_max) NIL)
      ((QUOTE T)
-      (CONS (iter_R c_r_0)
-      (CONS (PRINT)
-            (iter_I (+ c_i delta_i))))))))
+      ((LAMBDA () ())
+       (iter_R c_r_0)
+       (PRINT)
+       (iter_I (+ c_i delta_i)))))))
  (QUOTE
    ;; iter_R
  )
@@ -175,10 +173,11 @@
    (COND
      ((> c_r c_r_max) NIL)
      ((QUOTE T)
-      (CONS (PRINT (COND
-                     ((ismandel c_r c_i) (QUOTE *))
-                     ((QUOTE T) (QUOTE .))))
-            (iter_R (+ c_r delta_r)))))))
+      ((LAMBDA () ())
+       (PRINT (COND
+                ((ismandel c_r c_i) (QUOTE *))
+                ((QUOTE T) (QUOTE .))))
+       (iter_R (+ c_r delta_r)))))))
  (QUOTE
    ;; mandelplot
  )
