@@ -5,9 +5,9 @@
           _ iter_I _ iter_R _ mandelplot)
    ((LAMBDA () ())
     (mandelplot)))
- (QUOTE (0 0 0 0 0 0 0 0 0 0 0   0 0 0 0))
- (QUOTE (1 1 1 1 1 1 1 1 1 1 1   1 1 1 1))
- (QUOTE (1 1 1 1 1 1 1 1 1 1 1))
+ (QUOTE (0 0 0 0 0 0 0 0 0 0 0 0 0 0   0 0 0 0))
+ (QUOTE (1 1 1 1 1 1 1 1 1 1 1 1 1 1   1 1 1 1))
+ (QUOTE (1 1 1 1 1 1 1 1 1 1 1 1 1 1))
  (QUOTE
    ;; addhalf : Half adder
    ;;           Output is in reverse ordered binary (the msb is at the end)
@@ -153,7 +153,7 @@
    ;; ismandel
  )
  (QUOTE (LAMBDA (c_r c_i)
-   (ismandel_iter u0 u0 (QUOTE (* * * * * * * * * * * *)))))
+   (ismandel_iter u0 u0 (QUOTE (* * * *  * * * *  * * * *  * * * *)))))
  (QUOTE
    ;; iter_I
  )
@@ -183,12 +183,12 @@
  (QUOTE (LAMBDA ()
    ((LAMBDA (c_r_0 c_i_0 c_r_max c_i_max delta_r delta_i 4)
       (iter_I c_i_0))
-    (unegate (QUOTE (0 0 0 0 0 0 0 0 0 1 0   0 1 0 0)))
-    (unegate (QUOTE (0 0 0 0 0 0 0 0 0 1 0   1 0 0 0)))
-    (QUOTE (0 0 0 0 0 0 0 0 0 0 1   0 0 0 0))
-    (QUOTE (0 0 0 0 0 0 0 0 0 1 0   1 0 0 0))
-    (<< (QUOTE (0 0 0 0 0 0 0 0 0 0 0   1 0 0 0)) (QUOTE (* * * *)))
-    (<< (QUOTE (0 0 0 0 0 0 0 0 0 0 0   0 1 0 0)) (QUOTE (* * * *)))
-    (QUOTE (0 0 0 0 0 0 0 0 0 0 0   0 0 1 0)))
+    (unegate (QUOTE (0 0 0 0 0 0 0 0 0 0 0 0 1 0   0 1 0 0)))
+    (unegate (QUOTE (0 0 0 0 0 0 0 0 0 0 0 0 1 0   1 0 0 0)))
+    (QUOTE (0 0 0 0 0 0 0 0 0 0 0 0 0 1   0 0 0 0))
+    (QUOTE (0 0 0 0 0 0 0 0 0 0 0 0 1 0   1 0 0 0))
+    (<< (QUOTE (0 0 0 0 0 0 0 0 0 0 0 0 0 0   1 0 0 0)) (QUOTE (* * * *)))
+    (<< (QUOTE (0 0 0 0 0 0 0 0 0 0 0 0 0 0   0 1 0 0)) (QUOTE (* * * *)))
+    (QUOTE (0 0 0 0 0 0 0 0 0 0 0 0 0 0   0 0 1 0)))
  ))
  )
