@@ -1,22 +1,35 @@
 ((LAMBDA (DEBUG u0 umax fracbitsize 2 4 _ addhalf _ addfull _ uaddnofc _ uaddnof _ umultnof
-          _ take _ drop _ unegate _ fixmult _ + _ - _ * _ 0>fix _ < _ > _ <<
-          _ mandelstep _ ismandel_iter _ ismandel _ mandelplot)
+          _ take _ drop _ unegate _ ufixmult _ + _ - _ * _ 0>fix _ < _ > _ <<
+          _ ismandel_iter _ ismandel _ mandelplot)
    ((LAMBDA () ())
-    (PRINT (<< (QUOTE (0 0 0 0 0 0 1 1   1 1 0 1)) (QUOTE (*))))(PRINT)
-    (PRINT (<< (QUOTE (0 0 0 0 0 0 1 1   1 1 0 1)) (QUOTE (* *))))(PRINT)
-    (PRINT (<< (QUOTE (0 0 0 0 0 0 1 1   1 1 0 1)) (QUOTE (* * *))))(PRINT)
-    (PRINT (<< (QUOTE (0 0 0 0 0 0 1 1   1 1 0 1)) (QUOTE (* * * *))))(PRINT)
+    (PRINT (*  (QUOTE (0 0 0 0 0 0 0 0 0 0 0   1 0 0 0 0))
+               (QUOTE (0 0 0 0 0 0 0 0 0 0 0   1 0 0 0 0))))(PRINT)
+    (PRINT (*  (QUOTE (0 0 0 0 0 0 0 0 0 0 1   0 0 0 0 0))
+               (QUOTE (0 0 0 0 0 0 0 0 0 0 0   1 0 0 0 0))))(PRINT)
+    (PRINT (*  (QUOTE (0 0 0 0 0 0 0 0 0 1 1   0 0 0 0 0))
+               (QUOTE (0 0 0 0 0 0 0 0 0 0 0   1 1 1 0 0))))(PRINT)
+    (PRINT (*  (QUOTE (0 0 0 0 0 0 0 0 0 1 1   1 1 0 0 1))
+               (QUOTE (0 0 1 0 0 0 0 0 0 0 0   1 0 0 0 0))))(PRINT)
+    (PRINT u0)(PRINT)
+    (PRINT)
+    (PRINT (<< (QUOTE (0 0 0 0 0 0 0 0 0 1 1   1 1 0 1 0)) (QUOTE (*))))(PRINT)
+    (PRINT (<< (QUOTE (0 0 0 0 0 0 0 0 0 1 1   1 1 0 1 0)) (QUOTE (* *))))(PRINT)
+    (PRINT (<< (QUOTE (0 0 0 0 0 0 0 0 0 1 1   1 1 0 1 0)) (QUOTE (* * *))))(PRINT)
+    (PRINT (<< (QUOTE (0 0 0 0 0 0 0 0 0 1 1   1 1 0 1 0)) (QUOTE (* * * *))))(PRINT)
+    (PRINT)
+    (PRINT (unegate (QUOTE (0 0 0 0 0 0 0 0 0 0 0   1 1 0 0 0))))(PRINT)
+    (PRINT (unegate (QUOTE (0 0 0 0 0 0 0 0 0 0 0   1 0 0 0 0))))(PRINT)
     (PRINT)
     (mandelplot)
     )
 
  )
  (QUOTE (LAMBDA (X) ((LAMBDA (_ _ _ _ Y) Y) (PRINT (QUOTE [)) (PRINT X) (PRINT (QUOTE ])) (PRINT) X)))
- (QUOTE (0 0 0 0 0 0 0 0   0 0 0 0))
- (QUOTE (1 1 1 1 1 1 1 1   1 1 1 1))
- (QUOTE (1 1 1 1 1 1 1 1))
- (QUOTE (0 0 0 0 0 0 0 0   0 1 0 0))
- (QUOTE (0 0 0 0 0 0 0 0   0 0 1 0))
+ (QUOTE (0 0 0 0 0 0 0 0 0 0 0   0 0 0 0 0))
+ (QUOTE (1 1 1 1 1 1 1 1 1 1 1   1 1 1 1 1))
+ (QUOTE (1 1 1 1 1 1 1 1 1 1 1))
+ (QUOTE (0 0 0 0 0 0 0 0 0 0 0   0 1 0 0 0))
+ (QUOTE (0 0 0 0 0 0 0 0 0 0 0   0 0 1 0 0))
  (QUOTE
    ;; addhalf : Half adder
    ;;           Output is in reverse ordered binary (the msb is at the end)
@@ -90,7 +103,7 @@
  (QUOTE (LAMBDA (N)
    (take u0 (umultnof N umax))))
  (QUOTE
-   ;; fixmult : Fixed-point multiplication
+   ;; ufixmult : Unsigned fixed point multiplication
  )
  (QUOTE (LAMBDA (X Y)
    (take u0 (drop fracbitsize (umultnof X Y)))))
@@ -108,7 +121,17 @@
    ;; *
  )
  (QUOTE (LAMBDA (X Y)
-   (fixmult X Y)))
+   (COND
+     ((< X u0)
+      (COND
+        ((< Y u0)
+         (ufixmult (unegate X) (unegate Y)))
+        ((QUOTE T)
+         (unegate (ufixmult (unegate X) Y)))))
+     ((< Y u0)
+      (unegate (ufixmult X (unegate Y))))
+     ((QUOTE T)
+      (ufixmult X Y)))))
  (QUOTE
    ;; 0>fix
  )
@@ -131,60 +154,60 @@
  )
  (QUOTE (LAMBDA (X Y_u)
    (+ (drop Y_u X) u0)))
-
- (QUOTE
-   ;; mandelstep
- )
- (QUOTE (LAMBDA (z_r z_i c_r c_i)
-   (CONS (+ c_r (- (* z_r z_r) (* z_i z_i)))
-         (+ c_i (* 2 (* z_r z_i))))))
  (QUOTE
    ;; ismandel_iter
  )
- (QUOTE (LAMBDA (z_r z_i c_r c_i N_iter_u)
-   (COND
-     ((EQ NIL N_iter_u) (QUOTE T))
-     ((< 4 (+ (* z_r z_r) (* z_i z_i))) NIL)
-     ((QUOTE T)
-      ((LAMBDA (z)
-         (ismandel_iter (CAR z) (CDR z) c_r c_i (CDR N_iter_u)))
-       (mandelstep z_r z_i c_r c_i))))))
+ (QUOTE (LAMBDA (z_r z_i N_iter_u)
+   ((LAMBDA (z_r_sq z_i_sq z_r_z_i)
+      (COND
+        ((EQ NIL N_iter_u) (QUOTE T))
+        ((< 4 (+ z_r_sq z_i_sq)) NIL)
+        ((QUOTE T)
+         (ismandel_iter
+              (+ c_r (- z_r_sq z_i_sq))
+              (+ c_i (+ z_r_z_i z_r_z_i))
+              (CDR N_iter_u)))))
+   (* z_r z_r)
+   (* z_i z_i)
+   (* z_r z_i)
+   )))
  (QUOTE
    ;; ismandel
+   ;; 
  )
- (QUOTE (LAMBDA (z_r z_i c_r c_i)
-   (ismandel_iter z_r z_i c_r c_i (QUOTE (* * * *)))))
+ (QUOTE (LAMBDA (c_r c_i)
+   (ismandel_iter u0 u0 (QUOTE (* * * *)))))
  (QUOTE
    ;; mandelplot
  )
  (QUOTE (LAMBDA ()
-   ((LAMBDA (c_r_0 c_i_0 N_plotsize)
+   ((LAMBDA (c_r_0 c_i_0 log_plotsize)
       ((LAMBDA (iter_R delta_r delta_i)
-         (iter_R (+ c_r_0 delta_r))
+         (iter_R c_r_0)
        )
        (QUOTE (LAMBDA (c_r)
          ((LAMBDA (iter_I)
             (COND
-              ((> c_r (QUOTE (0 0 0 0 0 0 0 0   1 0 0 0))) NIL)
+              ((> c_r (QUOTE (0 0 0 0 0 0 0 0 0 0 0   1 0 0 0 0))) NIL)
               ((QUOTE T)
-               (CONS (iter_I (+ c_i_0 delta_i))
+               (CONS (iter_I c_i_0)
                (CONS (PRINT)
                      (iter_R (+ c_r delta_r)))))))
           (QUOTE (LAMBDA (c_i)
             (COND
-              ((> c_i (QUOTE (0 0 0 0 0 0 0 0   1 0 0 0))) NIL)
+              ((> c_i (QUOTE (0 0 0 0 0 0 0 0 0 0 0   1 0 0 0 0))) NIL)
               ((QUOTE T)
                (CONS (PRINT (COND
-                              ((ismandel u0 u0 c_r c_i) (QUOTE *))
+                              ((ismandel c_r c_i) (QUOTE *))
                               ((QUOTE T) (QUOTE .))))
                      (iter_I (+ c_i delta_i))
                      ))))))))
-       (<< (QUOTE (0 0 0 0 0 0 0 0   0 0 1 0)) N_plotsize)
-       (<< (QUOTE (0 0 0 0 0 0 0 0   0 1 0 0)) N_plotsize)
+       (<< (QUOTE (0 0 0 0 0 0 0 0 0 0 0   0 0 1 0 0)) log_plotsize)
+       (<< (QUOTE (0 0 0 0 0 0 0 0 0 0 0   0 1 0 0 0)) log_plotsize)
     ))
-    (unegate (QUOTE (0 0 0 0 0 0 0 0   1 1 0 0)))
-    (unegate (QUOTE (0 0 0 0 0 0 0 0   1 0 0 0)))
-    (QUOTE (* * *))
+    (unegate (QUOTE (0 0 0 0 0 0 0 0 0 0 0   1 1 0 0 0)))
+    (unegate (QUOTE (0 0 0 0 0 0 0 0 0 0 0   1 0 0 0 0)))
+    (QUOTE (* *))
     )
  ))
  )
