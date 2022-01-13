@@ -1,14 +1,13 @@
-((LAMBDA (DEBUG u0 umax fracbitsize
+((LAMBDA (u0 umax fracbitsize
           _ addhalf _ addfull _ uaddnofc _ uaddnof _ umultnof
           _ take _ drop _ unegate _ ufixmult _ + _ - _ * _ 0>fix _ < _ > _ <<
           _ ismandel_iter _ ismandel
           _ iter_I _ iter_R _ mandelplot)
    ((LAMBDA () ())
     (mandelplot)))
- (QUOTE (LAMBDA (X) ((LAMBDA (_ _ _ _ Y) Y) (PRINT (QUOTE [)) (PRINT X) (PRINT (QUOTE ])) (PRINT) X)))
- (QUOTE (0 0 0 0 0 0   0 0 0 0))
- (QUOTE (1 1 1 1 1 1   1 1 1 1))
- (QUOTE (1 1 1 1 1 1))
+ (QUOTE (0 0 0 0 0 0 0 0   0 0 0 0))
+ (QUOTE (1 1 1 1 1 1 1 1   1 1 1 1))
+ (QUOTE (1 1 1 1 1 1 1 1))
  (QUOTE
    ;; addhalf : Half adder
    ;;           Output is in reverse ordered binary (the msb is at the end)
@@ -134,7 +133,7 @@
  (QUOTE (LAMBDA (X Y_u)
    (+ (drop Y_u X) u0)))
  (QUOTE
-   ;; ismandel_iter
+   ;; ismandel_iter : c_r and c_i are referenced as dynamic variables from ismandel
  )
  (QUOTE (LAMBDA (z_r z_i N_iter_u)
    ((LAMBDA (z_r_sq z_i_sq z_r_z_i)
@@ -184,12 +183,12 @@
  (QUOTE (LAMBDA ()
    ((LAMBDA (c_r_0 c_i_0 c_r_max c_i_max delta_r delta_i 4)
       (iter_I c_i_0))
-    (unegate (QUOTE (0 0 0 0 1 0   0 1 0 0)))
-    (unegate (QUOTE (0 0 0 0 1 0   1 0 0 0)))
-    (QUOTE (0 0 0 0 0 1   0 0 0 0))
-    (QUOTE (0 0 0 0 1 0   1 0 0 0))
-    (<< (QUOTE (0 0 0 0 0 0   1 0 0 0)) (QUOTE (* *)))
-    (<< (QUOTE (0 0 0 0 0 0   0 1 0 0)) (QUOTE (* *)))
-    (QUOTE (0 0 0 0 0 0   0 0 1 0)))
+    (unegate (QUOTE (0 0 0 0 0 0 1 0   0 1 0 0)))
+    (unegate (QUOTE (0 0 0 0 0 0 1 0   1 0 0 0)))
+    (QUOTE (0 0 0 0 0 0 0 1   0 0 0 0))
+    (QUOTE (0 0 0 0 0 0 1 0   1 0 0 0))
+    (<< (QUOTE (0 0 0 0 0 0 0 0   0 1 0 0)) (QUOTE (* * *)))
+    (<< (QUOTE (0 0 0 0 0 0 0 0   1 0 0 0)) (QUOTE (* * *)))
+    (QUOTE (0 0 0 0 0 0 0 0   0 0 1 0)))
  ))
  )
