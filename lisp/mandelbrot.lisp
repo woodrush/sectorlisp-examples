@@ -184,7 +184,7 @@
     ))
     (unegate (QUOTE (0 0 0 0 0 0 0 0   1 1 0 0)))
     (unegate (QUOTE (0 0 0 0 0 0 0 0   1 0 0 0)))
-    (QUOTE (* *))
+    (QUOTE (* * *))
     )
  ))
  )
