@@ -88,8 +88,9 @@
     (PRINT (<< (QUOTE (0 0 0 0 0 0 1 1   1 1 0 1)) (QUOTE (* * *))))(PRINT)
     (PRINT (<< (QUOTE (0 0 0 0 0 0 1 1   1 1 0 1)) (QUOTE (* * * *))))(PRINT)
     (PRINT)
+    (mandelplot)
     )
-   
+
  )
  (QUOTE (LAMBDA (X) ((LAMBDA (_ _ _ _ Y) Y) (PRINT (QUOTE [)) (PRINT X) (PRINT (QUOTE ])) (PRINT) X)))
  (QUOTE (0 0 0 0 0 0 0 0   0 0 0 0))
@@ -238,11 +239,30 @@
    ;; mandelplot
  )
  (QUOTE (LAMBDA ()
-   ((LAMBDA (-3 -1 2 4 N_plotsize_u))
+   ((LAMBDA (c_r_0 c_i_0 N_plotsize)
+      ((LAMBDA (iter_R iter_I delta_r delta_i)
+         (iter_R c_r_0)
+       )
+       (QUOTE (LAMBDA (c_r)
+         (COND
+           ((< c_r (QUOTE (0 0 0 0 0 0 0 0   1 0 0 0))) NIL)
+           ((QUOTE T)
+            (CONS (iter_I (+ c_r delta_r) (+ c_i_0 delta_i))
+                  (iter_R (+ c_r delta_r)))))))
+       (QUOTE (LAMBDA (c_r c_i)
+         (COND
+           ((< c_i (QUOTE (0 0 0 0 0 0 0 0   1 0 0 0))) NIL)
+           ((QUOTE T)
+            (CONS (PRINT (COND
+                           ((ismandel u0 u0 c_r c_i) (QUOTE *))
+                           ((QUOTE T) (QUOTE .))))
+                  (iter_I c_r (+ c_i delta_i)))))))
+
+       (<< (QUOTE (0 0 0 0 0 0 0 0   0 0 1 0)) N_plotsize)
+       (<< (QUOTE (0 0 0 0 0 0 0 0   0 1 0 0)) N_plotsize)
+    ))
     (unegate (QUOTE (0 0 0 0 0 0 0 0   1 1 0 0)))
     (unegate (QUOTE (0 0 0 0 0 0 0 0   1 0 0 0)))
-    (unegate (QUOTE (0 0 0 0 0 0 0 0   1 0 0 0)))
-    (unegate (QUOTE (0 0 0 0 0 0 0 0   0 0 1 0)))
     (QUOTE (* * * *))
     )
  ))
