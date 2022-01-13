@@ -9,8 +9,8 @@ def isMandel(z_r, z_i, c_r, c_i, N_iter):
             2 * z_r * z_i + c_i,
             c_r, c_i, N_iter-1)
 
-N_plotsize = 4
-N_iter = 4
+N_plotsize = 8
+N_iter = 6
 delta_r = 1.0/N_plotsize
 delta_i = 2.0/N_plotsize
 c_i = -1.25

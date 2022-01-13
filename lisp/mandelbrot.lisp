@@ -1,6 +1,8 @@
-((LAMBDA (DEBUG u0 umax fracbitsize 2 4 _ addhalf _ addfull _ uaddnofc _ uaddnof _ umultnof
+((LAMBDA (DEBUG u0 umax fracbitsize
+          _ addhalf _ addfull _ uaddnofc _ uaddnof _ umultnof
           _ take _ drop _ unegate _ ufixmult _ + _ - _ * _ 0>fix _ < _ > _ <<
-          _ ismandel_iter _ ismandel _ mandelplot)
+          _ ismandel_iter _ ismandel
+          _ iter_I _ iter_R _ mandelplot)
    ((LAMBDA () ())
     (mandelplot)
     )
@@ -10,8 +12,6 @@
  (QUOTE (0 0 0 0 0 0   0 0 0 0))
  (QUOTE (1 1 1 1 1 1   1 1 1 1))
  (QUOTE (1 1 1 1 1 1))
- (QUOTE (0 0 0 0 0 0   0 1 0 0))
- (QUOTE (0 0 0 0 0 0   0 0 1 0))
  (QUOTE
    ;; addhalf : Half adder
    ;;           Output is in reverse ordered binary (the msb is at the end)
@@ -143,8 +143,6 @@
    ((LAMBDA (z_r_sq z_i_sq z_r_z_i)
       (COND
         ((EQ NIL N_iter_u) (QUOTE T))
-        ((< 2 z_r_sq) NIL)
-        ((< 2 z_i_sq) NIL)
         ((< 4 (+ z_r_sq z_i_sq)) NIL)
         ((QUOTE T)
          (ismandel_iter
@@ -159,38 +157,40 @@
    ;; ismandel
  )
  (QUOTE (LAMBDA (c_r c_i)
-   (ismandel_iter u0 u0 (QUOTE (* * * *)))))
+   (ismandel_iter u0 u0 (QUOTE (* * *)))))
+ (QUOTE
+   ;; iter_I
+ )
+ (QUOTE (LAMBDA (c_i)
+   (COND
+     ((> c_i c_i_max) NIL)
+     ((QUOTE T)
+      (CONS (iter_R c_r_0)
+      (CONS (PRINT)
+            (iter_I (+ c_i delta_i))))))))
+ (QUOTE
+   ;; iter_R
+ )
+ (QUOTE (LAMBDA (c_r)
+   (COND
+     ((> c_r c_r_max) NIL)
+     ((QUOTE T)
+      (CONS (PRINT (COND
+                     ((ismandel c_r c_i) (QUOTE *))
+                     ((QUOTE T) (QUOTE .))))
+            (iter_R (+ c_r delta_r)))))))
  (QUOTE
    ;; mandelplot
  )
  (QUOTE (LAMBDA ()
-   ((LAMBDA (c_r_0 c_i_0 log_plotsize)
-      ((LAMBDA (iter_I delta_r delta_i)
-         (iter_I c_i_0)
-       )
-       (QUOTE (LAMBDA (c_i)
-         ((LAMBDA (iter_R)
-            (COND
-              ((> c_i (QUOTE (0 0 0 0 1 0   1 0 0 0))) NIL)
-              ((QUOTE T)
-               (CONS (iter_R c_r_0)
-               (CONS (PRINT)
-                     (iter_I (+ c_i delta_i)))))))
-          (QUOTE (LAMBDA (c_r)
-            (COND
-              ((> c_r (QUOTE (0 0 0 0 0 1   0 0 0 0))) NIL)
-              ((QUOTE T)
-               (CONS (PRINT (COND
-                              ((ismandel c_r c_i) (QUOTE *))
-                              ((QUOTE T) (QUOTE .))))
-                     (iter_R (+ c_r delta_r))
-                     ))))))))
-       (<< (QUOTE (0 0 0 0 0 0   1 0 0 0)) log_plotsize)
-       (<< (QUOTE (0 0 0 0 0 0   0 1 0 0)) log_plotsize)
-    ))
+   ((LAMBDA (c_r_0 c_i_0 c_r_max c_i_max delta_r delta_i 4)
+      (iter_I c_i_0))
     (unegate (QUOTE (0 0 0 0 1 0   0 1 0 0)))
     (unegate (QUOTE (0 0 0 0 1 0   1 0 0 0)))
-    (QUOTE (* *))
-    )
+    (QUOTE (0 0 0 0 0 1   0 0 0 0))
+    (QUOTE (0 0 0 0 1 0   1 0 0 0))
+    (<< (QUOTE (0 0 0 0 0 0   1 0 0 0)) (QUOTE (* *)))
+    (<< (QUOTE (0 0 0 0 0 0   0 1 0 0)) (QUOTE (* *)))
+    (QUOTE (0 0 0 0 0 0   0 0 1 0)))
  ))
  )
