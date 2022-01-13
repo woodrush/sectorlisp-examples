@@ -153,7 +153,7 @@
    ;; ismandel
  )
  (QUOTE (LAMBDA (c_r c_i)
-   (ismandel_iter u0 u0 (QUOTE (* * * *)))))
+   (ismandel_iter u0 u0 (QUOTE (* * * * * *)))))
  (QUOTE
    ;; iter_I
  )
@@ -187,8 +187,8 @@
     (unegate (QUOTE (0 0 0 0 0 0 1 0   1 0 0 0)))
     (QUOTE (0 0 0 0 0 0 0 1   0 0 0 0))
     (QUOTE (0 0 0 0 0 0 1 0   1 0 0 0))
-    (<< (QUOTE (0 0 0 0 0 0 0 0   0 1 0 0)) (QUOTE (* * *)))
-    (<< (QUOTE (0 0 0 0 0 0 0 0   1 0 0 0)) (QUOTE (* * *)))
+    (<< (QUOTE (0 0 0 0 0 0 0 0   0 1 0 0)) (QUOTE (* *)))
+    (<< (QUOTE (0 0 0 0 0 0 0 0   1 0 0 0)) (QUOTE (* *)))
     (QUOTE (0 0 0 0 0 0 0 0   0 0 1 0)))
  ))
  )
