@@ -5,9 +5,9 @@
           _ iter_I _ iter_R _ mandelplot)
    ((LAMBDA () ())
     (mandelplot)))
- (QUOTE (0 0 0 0 0 0 0 0 0 0 0 0 0 0   0 0 0 0))
- (QUOTE (1 1 1 1 1 1 1 1 1 1 1 1 1 1   1 1 1 1))
- (QUOTE (1 1 1 1 1 1 1 1 1 1 1 1 1 1))
+ (QUOTE (0 0  0 0 0 0  0 0 0 0  0 0 0 0    0 0 0 0))
+ (QUOTE (1 1  1 1 1 1  1 1 1 1  1 1 1 1    1 1 1 1))
+ (QUOTE (1 1  1 1 1 1  1 1 1 1  1 1 1 1))
  (QUOTE
    ;; addhalf : Half adder
    ;;           Output is in reverse ordered binary (the msb is at the end)
@@ -128,12 +128,13 @@
  (QUOTE
    ;; << : Shift X by Y_u bits, where Y_u is in unary.
    ;;      Note that since the bits are written in reverse order,
-   ;;      This works as division and makes the input number smaller.
+   ;;      this works as division and makes the input number smaller.
  )
  (QUOTE (LAMBDA (X Y_u)
    (+ (drop Y_u X) u0)))
  (QUOTE
-   ;; ismandel_iter : c_r and c_i are referenced as dynamic variables from ismandel
+   ;; ismandel_iter : c_r and c_i are referenced as
+   ;;                 dynamic variables from ismandel
  )
  (QUOTE (LAMBDA (z_r z_i N_iter_u)
    ((LAMBDA (z_r_sq z_i_sq z_r_z_i)
@@ -147,13 +148,12 @@
               (CDR N_iter_u)))))
    (* z_r z_r)
    (* z_i z_i)
-   (* z_r z_i)
-   )))
+   (* z_r z_i))))
  (QUOTE
    ;; ismandel
  )
  (QUOTE (LAMBDA (c_r c_i)
-   (ismandel_iter u0 u0 (QUOTE (* * * *  * * * *  * * * *  * * * *)))))
+   (ismandel_iter u0 u0 (QUOTE (* * * *  * * * *  * * * *  * *)))))
  (QUOTE
    ;; iter_I
  )
@@ -183,12 +183,14 @@
  (QUOTE (LAMBDA ()
    ((LAMBDA (c_r_0 c_i_0 c_r_max c_i_max delta_r delta_i 4)
       (iter_I c_i_0))
-    (unegate (QUOTE (0 0 0 0 0 0 0 0 0 0 0 0 1 0   0 1 0 0)))
-    (unegate (QUOTE (0 0 0 0 0 0 0 0 0 0 0 0 1 0   1 0 0 0)))
-    (QUOTE (0 0 0 0 0 0 0 0 0 0 0 0 0 1   0 0 0 0))
-    (QUOTE (0 0 0 0 0 0 0 0 0 0 0 0 1 0   1 0 0 0))
-    (<< (QUOTE (0 0 0 0 0 0 0 0 0 0 0 0 0 0   1 0 0 0)) (QUOTE (* * * *)))
-    (<< (QUOTE (0 0 0 0 0 0 0 0 0 0 0 0 0 0   0 1 0 0)) (QUOTE (* * * *)))
-    (QUOTE (0 0 0 0 0 0 0 0 0 0 0 0 0 0   0 0 1 0)))
- ))
- )
+    (unegate (QUOTE (0 0  0 0 0 0  0 0 0 0  0 0 1 0    0 1 0 0)))
+    (unegate (QUOTE (0 0  0 0 0 0  0 0 0 0  0 0 1 0    1 0 0 0)))
+    (QUOTE          (0 0  0 0 0 0  0 0 0 0  0 0 0 1    0 0 0 0))
+    (QUOTE          (0 0  0 0 0 0  0 0 0 0  0 0 1 0    1 0 0 0))
+    (<<
+      (QUOTE        (0 0  0 0 0 0  0 0 0 0  0 0 0 0    1 0 0 0))
+      (QUOTE (* * * *)))
+    (<<
+      (QUOTE        (0 0  0 0 0 0  0 0 0 0  0 0 0 0    0 1 0 0))
+      (QUOTE (* * * *)))
+    (QUOTE          (0 0  0 0 0 0  0 0 0 0  0 0 0 0    0 0 1 0))))))
