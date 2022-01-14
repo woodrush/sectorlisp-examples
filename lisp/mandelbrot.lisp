@@ -1,6 +1,6 @@
 ((LAMBDA (u0 umax fracbitsize
           _ addhalf _ addfull _ uaddnofc _ uaddnof _ umultnof
-          _ take _ drop _ unegate _ ufixmult _ + _ - _ * _ 0>fix _ < _ > _ <<
+          _ take _ drop _ ufixmult _ negate _ + _ - _ * _ 0>fix _ < _ > _ <<
           _ ismandel_iter _ ismandel
           _ iter_I _ iter_R _ mandelplot)
    ((LAMBDA () ())
@@ -10,7 +10,7 @@
  (QUOTE (1 1 1 1  1 1 1 1  1 1 1 1  1 1 1 1))
  (QUOTE
    ;; addhalf : Half adder
-   ;;           Output is in reverse ordered binary (the msb is at the end)
+   ;;           Output binary is in reverse order (the msb is at the end)
    ;;           The same applies to the entire system
  )
  (QUOTE (LAMBDA (X Y)
@@ -76,15 +76,15 @@
      ((EQ NIL L) X)
      ((QUOTE T) (drop (CDR L) (CDR X))))))
  (QUOTE
-   ;; unegate : Two's complement of unsigned int
- )
- (QUOTE (LAMBDA (N)
-   (take u0 (umultnof N umax))))
- (QUOTE
    ;; ufixmult : Unsigned fixed point multiplication
  )
  (QUOTE (LAMBDA (X Y)
    (take u0 (drop fracbitsize (umultnof X Y)))))
+ (QUOTE
+   ;; negate : Two's complement of int
+ )
+ (QUOTE (LAMBDA (N)
+   (take u0 (umultnof N umax))))
  (QUOTE
    ;; +
  )
@@ -94,7 +94,7 @@
    ;; -
  )
  (QUOTE (LAMBDA (X Y)
-   (take u0 (uaddnof X (unegate Y) (QUOTE 0)))))
+   (take u0 (uaddnof X (negate Y) (QUOTE 0)))))
  (QUOTE
    ;; *
  )
@@ -103,11 +103,11 @@
      ((< X u0)
       (COND
         ((< Y u0)
-         (ufixmult (unegate X) (unegate Y)))
+         (ufixmult (negate X) (negate Y)))
         ((QUOTE T)
-         (unegate (ufixmult (unegate X) Y)))))
+         (negate (ufixmult (negate X) Y)))))
      ((< Y u0)
-      (unegate (ufixmult X (unegate Y))))
+      (negate (ufixmult X (negate Y))))
      ((QUOTE T)
       (ufixmult X Y)))))
  (QUOTE
@@ -183,14 +183,14 @@
  (QUOTE (LAMBDA ()
    ((LAMBDA (c_r_0 c_i_0 c_r_max c_i_max delta_r delta_i 4)
       (iter_I c_i_0))
-    (unegate (QUOTE (0 0 0 0  0 0 0 0  0 0 0 0  0 0 1 0    0 1 0 0)))
-    (unegate (QUOTE (0 0 0 0  0 0 0 0  0 0 0 0  0 0 1 0    1 0 0 0)))
-    (QUOTE          (0 0 0 0  0 0 0 0  0 0 0 0  0 0 0 1    0 0 0 0))
-    (QUOTE          (0 0 0 0  0 0 0 0  0 0 0 0  0 0 1 0    1 0 0 0))
+    (negate (QUOTE (0 0 0 0  0 0 0 0  0 0 0 0  0 0 1 0    0 1 0 0)))
+    (negate (QUOTE (0 0 0 0  0 0 0 0  0 0 0 0  0 0 1 0    1 0 0 0)))
+    (QUOTE         (0 0 0 0  0 0 0 0  0 0 0 0  0 0 0 1    0 0 0 0))
+    (QUOTE         (0 0 0 0  0 0 0 0  0 0 0 0  0 0 1 0    1 0 0 0))
     (<<
-      (QUOTE        (0 0 0 0  0 0 0 0  0 0 0 0  0 0 0 0    1 0 0 0))
-      (QUOTE (* * * *)))
+      (QUOTE       (0 0 0 0  0 0 0 0  0 0 0 0  0 1 0 0    1 0 0 0))
+      (QUOTE (* * * * *)))
     (<<
-      (QUOTE        (0 0 0 0  0 0 0 0  0 0 0 0  0 0 0 0    0 1 0 0))
-      (QUOTE (* * * *)))
-    (QUOTE          (0 0 0 0  0 0 0 0  0 0 0 0  0 0 0 0    0 0 1 0))))))
+      (QUOTE       (0 0 0 0  0 0 0 0  0 0 0 0  0 0 0 0    0 1 0 0))
+      (QUOTE (* * * * *)))
+    (QUOTE         (0 0 0 0  0 0 0 0  0 0 0 0  0 0 0 0    0 0 1 0))))))
