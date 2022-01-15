@@ -63,4 +63,7 @@ The following programs are based on [lisp.lisp](https://github.com/jart/sectorli
 - [repl-macro.lisp](./lisp/repl.lisp)
 - [repl-macro-define.lisp](./lisp/repl-macro-define.lisp)
 
-The [LICENSE](LICENSE) in this repository includes the license from the original SectorLISP repository.
+These codes are associated with the ISC license from the original SectorLISP repository as well as the MIT license for this repository.
+The [LICENSE](LICENSE) file in this repository includes the ISC license from the original SectorLISP repository as well.
+
+Other programs were written solely by Hikaru Ikuta, and are associated with only the MIT License in [LICENSE](LICENSE).
