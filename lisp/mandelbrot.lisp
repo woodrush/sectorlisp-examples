@@ -1,13 +1,14 @@
 ((LAMBDA (u0 umax fracbitsize
           _ addhalf _ addfull _ uaddnofc _ uaddnof _ umultnof
-          _ take _ drop _ ufixmult _ negate _ + _ - _ * _ 0>fix _ < _ > _ <<
+          _ take _ drop _ ufixmult _ negate _ + _ - _ *
+          _ isnegative _ < _ > _ <<
           _ ismandel_iter _ ismandel
           _ iter_I _ iter_R _ mandelplot)
    ((LAMBDA () ())
     (mandelplot)))
- (QUOTE (0 0 0 0  0 0 0 0  0 0 0 0  0 0 0 0    0 0 0 0))
- (QUOTE (1 1 1 1  1 1 1 1  1 1 1 1  1 1 1 1    1 1 1 1))
- (QUOTE (1 1 1 1  1 1 1 1  1 1 1 1  1 1 1 1))
+ (QUOTE (0 0 0  0 0 0 0  0 0 0 0  0 0 0 0    0 0 0 0 0))
+ (QUOTE (1 1 1  1 1 1 1  1 1 1 1  1 1 1 1    1 1 1 1 1))
+ (QUOTE (1 1 1  1 1 1 1  1 1 1 1  1 1 1 1))
  (QUOTE
    ;; addhalf : Half adder
    ;;           Output binary is in reverse order (the msb is at the end)
@@ -111,7 +112,7 @@
      ((QUOTE T)
       (ufixmult X Y)))))
  (QUOTE
-   ;; 0>fix
+   ;; isnegative
  )
  (QUOTE (LAMBDA (X)
    (EQ (QUOTE 1) (CAR (drop (CDR u0) X)))))
@@ -119,7 +120,13 @@
    ;; <
  )
  (QUOTE (LAMBDA (X Y)
-   (0>fix (- X Y))))
+   (COND
+     ((isnegative X) (COND
+                       ((isnegative Y) (isnegative (- (negate Y) (negate X))))
+                       ((QUOTE T) (QUOTE T))))
+     ((QUOTE T) (COND
+                  ((isnegative Y) NIL)
+                  ((QUOTE T) (isnegative (- X Y))))))))
  (QUOTE
    ;; >
  )
@@ -181,16 +188,17 @@
    ;; mandelplot
  )
  (QUOTE (LAMBDA ()
-   ((LAMBDA (c_r_0 c_i_0 c_r_max c_i_max delta_r delta_i 4)
+   ((LAMBDA (c_r_0 c_i_0 c_r_max c_i_max delta_r delta_i 4 2)
       (iter_I c_i_0))
-    (negate (QUOTE (0 0 0 0  0 0 0 0  0 0 0 0  1 1 0 0    0 1 0 0)))
-    (negate (QUOTE (0 0 0 0  0 0 0 0  0 0 0 0  0 1 0 0    1 0 0 0)))
-    (QUOTE         (0 0 0 0  0 0 0 0  0 1 0 0  1 0 0 1    0 0 0 0))
-    (QUOTE         (0 0 0 0  0 0 0 0  0 0 0 0  0 1 0 0    1 0 0 0))
+    (negate (QUOTE (0 0 0  0 0 0 0  0 0 0 0  1 1 0 0    0 1 0 0 0)))
+    (negate (QUOTE (0 0 0  0 0 0 0  0 0 0 0  0 1 0 0    1 0 0 0 0)))
+    (QUOTE         (0 0 0  0 0 0 0  0 1 0 0  1 0 0 1    0 0 0 0 0))
+    (QUOTE         (0 0 0  0 0 0 0  0 0 0 0  0 1 0 0    1 0 0 0 0))
     (<<
-      (QUOTE       (0 0 0 0  0 0 0 0  0 0 0 0  0 1 0 0    1 0 0 0))
+      (QUOTE       (0 0 0  0 0 0 0  0 0 0 0  0 1 0 0    1 0 0 0 0))
       (QUOTE (* * * * *)))
     (<<
-      (QUOTE       (0 0 0 0  0 0 0 0  0 0 0 0  0 0 0 0    0 1 0 0))
+      (QUOTE       (0 0 0  0 0 0 0  0 0 0 0  0 0 0 0    0 1 0 0 0))
       (QUOTE (* * * * *)))
-    (QUOTE         (0 0 0 0  0 0 0 0  0 0 0 0  0 0 0 0    0 0 1 0))))))
+    (QUOTE         (0 0 0  0 0 0 0  0 0 0 0  0 0 0 0    0 0 1 0 0))
+    (QUOTE         (0 0 0  0 0 0 0  0 0 0 0  0 0 0 0    0 1 0 0 0))))))
