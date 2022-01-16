@@ -2,6 +2,8 @@
 This repository contains programs written for [SectorLISP](https://github.com/jart/sectorlisp),
 a 512-byte Lisp interpreter that fits inside the boot sector of a floppy disk and runs on bare metal.
 
+Please also see [sectorlisp-nn](https://github.com/woodrush/sectorlisp-nn) for an implementation of a neural network in SectorLISP.
+
 The following programs run on the original SectorLISP:
 - [basic.lisp](./lisp/basic.lisp) :
   - A BASIC-subset interpreter that runs on the original SectorLISP.
@@ -55,6 +57,16 @@ The following programs run on a [fork of SectorLISP](https://github.com/woodrush
   - A version of eval-macro-define.lisp with a REPL interface.
     With the combination of `print`, `read`, `macro`, `define`, `progn`, and implicit `progn`s inside lambdas and macros,
     the experience of the REPL should be close to that of modern Lisp dialects.
+- [mandelbrot.lisp](./lisp/mandelbrot.lisp)
+  - Prints the [Mandelbrot Set](https://en.wikipedia.org/wiki/Mandelbrot_set) at a 37x79 resolution.
+  - Since SectorLISP does not have a built-in feature for integers or fractions,
+    fixed point numbers are implemented from scratch only using symbolic expressions.
+  - The library used for the fixed point number system is available as [numsectorlisp](https://github.com/woodrush/libsectorlisp/blob/main/numsectorlisp.lisp)
+    in [libsectorlisp](https://github.com/woodrush/libsectorlisp).
+  - This program takes an incredibly long amount of time to finish running on Blinkenlights,
+    which took about one day to finish running.
+    You can also run this program on QEMU using the test scripts under `./test` in the SectorLISP repository.
+
 
 ## Licensing
 The following programs are based on [lisp.lisp](https://github.com/jart/sectorlisp/blob/main/lisp.lisp) in the [original SectorLISP repository](https://github.com/jart/sectorlisp):
