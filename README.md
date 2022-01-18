@@ -61,8 +61,8 @@ The following programs run on a [fork of SectorLISP](https://github.com/woodrush
   - Prints the [Mandelbrot Set](https://en.wikipedia.org/wiki/Mandelbrot_set) at a 37x79 resolution.
   - Since SectorLISP does not have a built-in feature for integers or fractions,
     fixed point numbers are implemented from scratch only using symbolic expressions.
-  - The library used for the fixed point number system is available as [numsectorlisp](https://github.com/woodrush/libsectorlisp/blob/main/numsectorlisp.lisp)
-    in [libsectorlisp](https://github.com/woodrush/libsectorlisp).
+  - The library used for the fixed point number system is available as [numsectorlisp](https://github.com/woodrush/numsectorlisp/blob/main/numsectorlisp.lisp)
+    in [numsectorlisp](https://github.com/woodrush/numsectorlisp).
   - This program takes an incredibly long amount of time to finish running on Blinkenlights,
     which took about one day to finish running.
     You can also run this program on QEMU using the test scripts under `./test` in the SectorLISP repository.
