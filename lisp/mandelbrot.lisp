@@ -80,7 +80,7 @@
    ;; ufixmult : Unsigned fixed point multiplication
  )
  (QUOTE (LAMBDA (X Y)
-   (take u0 (drop fracbitsize (umultnof X Y)))))
+   (take u0 (+ u0 (drop fracbitsize (umultnof X Y))))))
  (QUOTE
    ;; negate : Two's complement of int
  )
