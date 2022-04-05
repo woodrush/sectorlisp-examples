@@ -4,7 +4,7 @@ a 512-byte Lisp interpreter that fits inside the boot sector of a floppy disk an
 
 Please also see [sectorlisp-nn](https://github.com/woodrush/sectorlisp-nn) for an implementation of a neural network in SectorLISP.
 
-The following programs run on the original SectorLISP:
+## Programs
 - [basic.lisp](./lisp/basic.lisp) :
   - A BASIC-subset interpreter that runs on the original SectorLISP.
     Supports the instructions `REM`, `LET`, `IF`, `GOTO`, `PRINT`, and the infix operators `+`, `-`, `%`, and `<=`.
@@ -42,7 +42,7 @@ The following programs run on the original SectorLISP:
     It then uses `DEFMACRO` to define a new macro `REPQUOTE`, which returns an expression where the input expression is repeated twice.
 
 
-The following programs run on a [fork of SectorLISP](https://github.com/woodrush/sectorlisp/tree/io) with `READ` and `PRINT`:
+The following programs use the I/O special forms, `READ` and `PRINT`:
 - [number-guessing-game.lisp](./lisp/number-guessing-game.lisp) :
   - An interactive number guessing game where the player guesses a
     secret number from 1 to 10, using incremental knowledge of whether the guess was less than or greater than the secret number.
