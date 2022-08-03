@@ -40,6 +40,15 @@ Please also see [sectorlisp-nn](https://github.com/woodrush/sectorlisp-nn) for a
   - This example first defines the backquote macro `` ` `` and the unquote operation `~`,
     and then defines `DEFMACRO` as a macro.
     It then uses `DEFMACRO` to define a new macro `REPQUOTE`, which returns an expression where the input expression is repeated twice.
+- [dodosko.lisp](./lisp/dodosko.lisp) :
+  - Implements a [Fibonacci linear-feedback shift register](https://en.wikipedia.org/wiki/Linear-feedback_shift_register#Fibonacci_LFSRs) with the
+    primitive polynomial `x^9 + x^8 + x^5 + x^4 + 1` to create an [m-sequence](https://en.wikipedia.org/wiki/Maximum_length_sequence),
+    a pseudo-random periodic bit sequence.
+  - The program generates a pseudo-random bit sequence until its tail matches a fixed target bit sequence,
+    `1 0 0 0 1 0 0 0 1 0 0 0`, printing the generated sequence appended with a halting message.
+    The return value of the expression is a list containing the generated sequence plus the halting message.
+  - This is a solution for [this coding problem](https://twitter.com/Sheeeeepla/status/1554028833942441984) (in Japanese).
+    The bits `1` and `0` are represented by the atoms `DODO` and `SKO`.
 
 
 The following programs use the I/O special forms, `READ` and `PRINT`:
